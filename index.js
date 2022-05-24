@@ -12,6 +12,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
 inputBtn.addEventListener("click", function () {
   let data = inputEl.value;
+  if (myLeads == null) myLeads = [];
   myLeads.push(data);
   myLeads = localStorage.setItem("myLeads", JSON.stringify(myLeads));
   inputEl.value = "";
