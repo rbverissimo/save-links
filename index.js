@@ -6,32 +6,35 @@ const ulEl = document.getElementById("ul-el");
 
 window.addEventListener("DOMContentLoaded", function () {
   if (localStorage.getItem("myLinks") != null) {
-    renderLeads(myLinks);
+    myLinks = JSON.parse(localStorage.getItem("myLinks"));
+    render(myLinks);
   }
 });
 
+//whats this code problem: losing persistense
+
 inputBtn.addEventListener("click", function () {
   let data = inputEl.value;
-  if (myLinks == null) myLinks = [];
+  inputEl.value = "";
   myLinks.push(data);
   myLinks = localStorage.setItem("myLinks", JSON.stringify(myLinks));
-  inputEl.value = "";
+  myLinks = JSON.parse(localStorage.getItem("myLinks"));
   render(myLinks);
 });
 
 clearBtn.addEventListener("click", function () {
   localStorage.removeItem("myLinks");
+  myLinks = [];
   render(myLinks);
 });
 
-function render(myLinks) {
+function render(linksList) {
   let listItems = "";
-  myLinks = JSON.parse(localStorage.getItem("myLinks"));
-  if (myLinks == null) ulEl.innerHTML = listItems;
+  if (linksList == null) ulEl.innerHTML = listItems;
   else
-    for (let i = 0; i < myLinks.length; i++) {
+    for (let i = 0; i < linksList.length; i++) {
       listItems += `<li>
-        <a href='${myLinks[i]}' target='_blank'>${myLinks[i]}</a>
+        <a href='${linksList[i]}' target='_blank'>${linksList[i]}</a>
                   </li>
         `;
     }
