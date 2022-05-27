@@ -11,8 +11,6 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-//whats this code problem: losing persistense
-
 inputBtn.addEventListener("click", function () {
   let data = inputEl.value;
   inputEl.value = "";
