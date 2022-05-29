@@ -3,19 +3,19 @@ const inputBtn = document.getElementById("input-btn");
 const clearBtn = document.getElementById("clear-btn");
 const inputEl = document.getElementById("input-el");
 const ulEl = document.getElementById("ul-el");
+const tabBtn = document.getElementById("tab-btn");
 
 window.addEventListener("DOMContentLoaded", function () {
-  if (localStorage.getItem("myLinks") != null) {
-    myLinks = JSON.parse(localStorage.getItem("myLinks"));
-    render(myLinks);
-  }
+  myLinks = JSON.parse(localStorage.getItem("myLinks"));
+  render(myLinks);
 });
 
 inputBtn.addEventListener("click", function () {
   let data = inputEl.value;
   inputEl.value = "";
+  if (myLinks == null) myLinks = [];
   myLinks.push(data);
-  myLinks = localStorage.setItem("myLinks", JSON.stringify(myLinks));
+  localStorage.setItem("myLinks", JSON.stringify(myLinks));
   myLinks = JSON.parse(localStorage.getItem("myLinks"));
   render(myLinks);
 });
