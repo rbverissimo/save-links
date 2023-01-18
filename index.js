@@ -5,19 +5,28 @@ const inputEl = document.getElementById("input-el");
 const ulEl = document.getElementById("ul-el");
 const tabBtn = document.getElementById("tab-btn");
 
-window.addEventListener("DOMContentLoaded", function () {
+// const tabs = [{ url: "www.url.com.br" }];
+
+if (JSON.parse(localStorage.getItem("myLinks"))) {
   myLinks = JSON.parse(localStorage.getItem("myLinks"));
+  render(myLinks);
+}
+
+inputBtn.addEventListener("click", function () {
+  // if (myLinks == null) myLinks = [];
+  myLinks.push(inputEl.value);
+  inputEl.value = "";
+  localStorage.setItem("myLinks", JSON.stringify(myLinks));
   render(myLinks);
 });
 
-inputBtn.addEventListener("click", function () {
-  let data = inputEl.value;
-  inputEl.value = "";
-  if (myLinks == null) myLinks = [];
-  myLinks.push(data);
-  localStorage.setItem("myLinks", JSON.stringify(myLinks));
-  myLinks = JSON.parse(localStorage.getItem("myLinks"));
-  render(myLinks);
+tabBtn.addEventListener("click", function () {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    // if (myLinks == null) myLinks = [];
+    myLinks.push(tabs[0].url);
+    localStorage.setItem("myLinks", JSON.stringify(myLinks));
+    render(myLinks);
+  });
 });
 
 clearBtn.addEventListener("click", function () {
